@@ -1,0 +1,43 @@
+[
+    {
+        "data": [
+            {
+                "name": "contract_address",
+                "type": "felt"
+            }
+        ],
+        "keys": [],
+        "name": "erc721_contract_deployed",
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "name": "erc721_class_hash_",
+                "type": "felt"
+            }
+        ],
+        "name": "constructor",
+        "outputs": [],
+        "type": "constructor"
+    },
+    {
+        "inputs": [
+            {
+                "name": "name",
+                "type": "felt"
+            },
+            {
+                "name": "symbol",
+                "type": "felt"
+            },
+            {
+                "name": "owner",
+                "type": "felt"
+            }
+        ],
+        "name": "deploy_erc721_contract",
+        "outputs": [],
+        "type": "function"
+    }
+]
