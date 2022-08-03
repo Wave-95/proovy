@@ -79,6 +79,16 @@ end
 # Owner calls
 #
 
+@view
+func get_owner{
+    syscall_ptr : felt*,
+    pedersen_ptr : HashBuiltin*,
+    range_check_ptr,
+}() -> (owner : felt):
+    let (owner) = Ownable.owner()
+    return(owner=owner)
+end
+
 @external
 func change_owner{
     syscall_ptr : felt*,
