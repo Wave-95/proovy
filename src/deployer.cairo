@@ -28,6 +28,21 @@ func constructor{
 end
 
 #
+# Class hash setters
+#
+
+@external
+func set_OZ_ERC721MintableBurnable{
+    syscall_ptr : felt*,
+    pedersen_ptr : HashBuiltin*,
+    range_check_ptr,
+}(class_hash : felt):
+    Ownable.assert_only_owner()
+    class_hash_OZ_ERC721MintableBurnable.write(value=class_hash)
+    return ()
+end
+
+#
 # Deploy calls
 #
 
@@ -61,16 +76,15 @@ func deploy_OZ_ERC721MintableBurnable{
 end
 
 #
-# Class hash setters
+# Owner calls
 #
 
 @external
-func set_OZ_ERC721MintableBurnable{
+func change_owner{
     syscall_ptr : felt*,
     pedersen_ptr : HashBuiltin*,
     range_check_ptr,
-}(class_hash : felt):
-    Ownable.assert_only_owner()
-    class_hash_OZ_ERC721MintableBurnable.write(value=class_hash)
-    return ()
+}(new_owner : felt):
+    Ownable.transfer_ownership(new_owner=new_owner)
+    return()
 end
