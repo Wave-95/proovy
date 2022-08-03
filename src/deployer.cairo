@@ -47,7 +47,8 @@ func deploy_erc721_contract{
         class_hash=class_hash,
         contract_address_salt=current_salt,
         constructor_calldata_size=3,
-        constructor_calldata=constructor_args
+        constructor_calldata=constructor_args,
+        deploy_from_zero=0,
     )
     salt.write(value=current_salt + 1)
     erc721_contract_deployed.emit(contract_address=contract_address)
