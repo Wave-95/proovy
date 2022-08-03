@@ -1,5 +1,6 @@
 %lang starknet
 
+from cairo_contracts.src.openzeppelin.access.ownable.library import Ownable
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.starknet.common.syscalls import deploy
 from starkware.cairo.common.alloc import alloc
@@ -21,9 +22,14 @@ func constructor{
     syscall_ptr : felt*,
     pedersen_ptr : HashBuiltin*,
     range_check_ptr,
-}(erc721_class_hash_ : felt):
+}(owner : felt):
+    Ownable.initializer(owner=owner)
     return ()
 end
+
+#
+# Deploy calls
+#
 
 @external
 func deploy_OZ_ERC721MintableBurnable{
@@ -52,4 +58,19 @@ func deploy_OZ_ERC721MintableBurnable{
     salt.write(value=current_salt + 1)
     contract_deployed.emit(contract_address=contract_address, contract_owner=owner)
     return()
+end
+
+#
+# Class hash setters
+#
+
+@external
+func set_OZ_ERC721MintableBurnable{
+    syscall_ptr : felt*,
+    pedersen_ptr : HashBuiltin*,
+    range_check_ptr,
+}(class_hash : felt):
+    Ownable.assert_only_owner()
+    class_hash_OZ_ERC721MintableBurnable.write(value=class_hash)
+    return ()
 end
