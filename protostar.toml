@@ -9,5 +9,9 @@ deployer = [
     "src/deployer.cairo",
 ]
 
+OZ_ERC721MintableBurnable = [
+    "./lib/cairo_contracts/src/openzeppelin/token/erc721/presets/ERC721MintableBurnable.cairo"
+]
+
 ["protostar.shared_command_configs"]
 cairo_path = ["./lib/cairo_contracts/src"]
