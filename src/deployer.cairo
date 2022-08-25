@@ -2,7 +2,7 @@
 
 from cairo_contracts.src.openzeppelin.access.ownable.library import Ownable
 from starkware.cairo.common.cairo_builtins import HashBuiltin
-from starkware.starknet.common.syscalls import deploy
+from starkware.starknet.common.syscalls import deploy, get_caller_address
 from starkware.cairo.common.alloc import alloc
 
 @storage_var
@@ -14,7 +14,7 @@ func class_hash_OZ_ERC721MintableBurnable() -> (class_hash : felt):
 end
 
 @event
-func contract_deployed(contract_address : felt, contract_owner : felt):
+func contract_deployed(contract_address : felt, contract_owner : felt, caller : felt):
 end
 
 @constructor
@@ -58,6 +58,7 @@ func deploy_OZ_ERC721MintableBurnable{
 ):
     let (current_salt) = salt.read()
     let (class_hash) = class_hash_OZ_ERC721MintableBurnable.read()
+    let (caller) = get_caller_address()
     let (constructor_args : felt*) = alloc()
     assert constructor_args[0] = name
     assert constructor_args[1] = symbol
@@ -71,7 +72,7 @@ func deploy_OZ_ERC721MintableBurnable{
         deploy_from_zero=0,
     )
     salt.write(value=current_salt + 1)
-    contract_deployed.emit(contract_address=contract_address, contract_owner=owner)
+    contract_deployed.emit(contract_address=contract_address, contract_owner=owner, caller=caller)
     return()
 end
 
